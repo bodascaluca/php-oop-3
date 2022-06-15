@@ -14,6 +14,7 @@ Alcuni prodotti (es. antipulci) avranno la caratteristica che saranno disponibil
     include_once __DIR__ . "/Cuccia.php";
     include_once __DIR__ . "/Guinzaglio.php";
     include_once __DIR__ . "/Utente.php";
+    include_once __DIR__ . "/Indirizzo.php";
 
     $crocchetta_magica = new Alimentazione("Polox", "Next", 16, 2000, "Secco");
     // var_dump($crocchetta_magica);
@@ -28,22 +29,38 @@ Alcuni prodotti (es. antipulci) avranno la caratteristica che saranno disponibil
     // var_dump($cuccia_rex);
 
     $guinzaglio_Disney = new Guinzaglio("Baz", "Brexit", 20, "Disney", "no GPS", "cane picolo");
-    // var_dump($guinzaglio_Disney );
+    var_dump($guinzaglio_Disney );
 
     $guizaglio_proxy = new Guinzaglio("Proxy", "War_tech", 50, "", "con GPS", "cane piccolo");
     // var_dump($guizaglio_proxy);
 
+    
+    $guinzaglio_disney->disponibile = false;
+
     $matteo = new Utente("Matteo","matteo.rocca@gmail.com", "1234 4567 1230 2309", 11, 2021 );
-    $matteo->addProductCart($guinzaglio_Disney);
+
+    try{
+        $matteo->addProductCart($guinzaglio_Disney);
+
+    } catch(Exception $e){
+        echo "E' avvenuto un errore innaspettato";
+    }
+
+
     $matteo->addProductCart($crocchetta_magica);
+
+    $matteo->setIndirizzi("Italia", "Torino", "Corso Massimo");
+
+    echo $matteo->printIndirizzi(); 
+    var_dump($matteo);
 
     $marco = new Utente("Marco","marco.zampoglio@gmail.com", "0934 4567 0123 2309", 02, 2021 );
     $marco->addProductCart($guizaglio_proxy);
     $marco->addProductCart($bustina);
 
-    var_dump($crocchetta_magica);
-    var_dump($marco);
-?>
+    // var_dump($crocchetta_magica);
+    // var_dump($marco);
+?> 
 
 <!DOCTYPE html>
 <html lang="en">

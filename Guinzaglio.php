@@ -1,7 +1,10 @@
 <?php 
 include_once __DIR__ . "/Prodotto.php";
+include_once __DIR__ ."/ProdottoContabile.php";
 
 class Guinzaglio extends Prodotto{
+    use ProdottoContabbile;
+
     public $brandizzato;
     public $taglia;
     public $gps;
@@ -11,6 +14,7 @@ class Guinzaglio extends Prodotto{
         $this->brandizzato = $_brandizzato;
         $this->gps = $_gps;
         $this->taglia = $_taglia;
+        $this->iva = 4; //esempio, lo possiamo mettere qua e non per forza nella sua cartella
     }
 
     public function printInfo(){

@@ -1,8 +1,11 @@
 <?php
 
 include_once __DIR__ . "/Prodotto.php";
+include_once __DIR__ . "/Indirizzo.php";
 
 class Utente {
+    use Indirizzo;
+
     public $nome;
     public $email;
     public $carta;
@@ -23,27 +26,38 @@ class Utente {
     function addProductCart($_product){
         if($_product->disponibile){
             $this->carello[] = $_product;
-            return true ;
         } else {
-            return false;
+          throw new Exception("Prodotto non disponibile");
         }
     }
+// OOP2
+    // function getTotalPrice(){
+    //     $total_price = 0;
+    //     foreach($this->carello as $item){
+    //         $total_price += $item->prezzo;
+    //     }
+    //     return $total_price;
+    // } 
+
+    //OPP3
 
     function getTotalPrice(){
         $total_price = 0;
         foreach($this->carello as $item){
             $total_price += $item->prezzo;
         }
+        if($this->emailCheck()){
+            $total_price= $total_price * 0.8;
+        }
         return $total_price;
     } 
 
-    function emailCheck($total_price){
+    function emailCheck(){
         $newPrice = 0;
-        if($this->email === "matteo.rocca@gmail"){
-            return $newPrice = $total_price * (0.02) ;
-            // return "Essendo che sei nostro cleinte hai un 20% di sconto";
+        if($this->email && $this->nome){
+            return true;
         }else {
-            return "Non si può";
+            return false;
         }
     }
 
